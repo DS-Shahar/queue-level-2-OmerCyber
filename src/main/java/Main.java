@@ -136,5 +136,58 @@ public static Queue<Integer> q1_runsSizes(Queue<Character> q)
     return bestSum;
 }
 סיבוכיותo(n)
+  import java.util.ArrayDeque;
+import java.util.Queue;
+
+public class RadixSort {
+
+    public static void radixSort(Queue<Integer> q) {
+
+        Queue<Integer>[] buckets = new Queue[10];
+        for (int i = 0; i < 10; i++) {
+            buckets[i] = new ArrayDeque<>();
+        }
+
+        int max = 0;
+        for (int x : q) {
+            if (x > max) max = x;
+        }
+
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+
+            while (!q.isEmpty()) {
+                int x = q.remove();
+                int d = (x / exp) % 10;
+                buckets[d].add(x);
+            }
+
+            for (int i = 0; i < 10; i++) {
+                while (!buckets[i].isEmpty()) {
+                    q.add(buckets[i].remove());
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> q = new ArrayDeque<>();
+
+        q.add(170);
+        q.add(45);
+        q.add(75);
+        q.add(90);
+        q.add(802);
+        q.add(24);
+        q.add(2);
+        q.add(66);
+
+        radixSort(q);
+
+        while (!q.isEmpty()) {
+            System.out.print(q.remove() + " ");
+        }
+    }
+}
+
 
 }
