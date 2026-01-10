@@ -186,6 +186,29 @@ public class RadixSort {
         while (!q.isEmpty()) {
             System.out.print(q.remove() + " ");
         }
+      public static boolean hasDuplicates(Queue<String> q)
+{
+    Queue<String> seen = new Queue<String>();
+    Queue<String> tmp = new Queue<String>();
+
+    boolean dup = false;
+
+    while (!q.isEmpty())
+    {
+        String s = q.remove();
+
+        if (!dup && isIn(seen, s))
+            dup = true;
+
+        seen.insert(s);
+        tmp.insert(s);
+    }
+
+    while (!tmp.isEmpty())
+        q.insert(tmp.remove());
+
+    return dup;
+}
     }
 }
 
